@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Monster } from '../../models/monster.model';
 
 @Component({
   selector: 'app-playing-card',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './playing-card.component.css'
 })
 export class PlayingCardComponent {
-
+  @Input () monster: Monster = new Monster();
 }

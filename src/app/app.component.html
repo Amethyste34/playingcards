@@ -1,2 +1,12 @@
-<app-search-bar (searchButtonClicked)="increaseCount()"/>
+<!-- <app-search-bar
+    (searchButtonClicked)="increaseCount()"
+    [search]="search"
+    (searchChange)="search = $event"
+/> -->
+<app-search-bar
+    (searchButtonClicked)="increaseCount()"
+    [(search)]="search"
+/>
+
+Search: {{search}} <br />
 Click count: {{count}}

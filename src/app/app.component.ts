@@ -13,6 +13,7 @@ import { SearchBarComponent } from "./components/search-bar/search-bar.component
 export class AppComponent {
   monster1!: Monster;
   count: number = 0;
+  search = '';
 
   constructor() {
     this.monster1 = new Monster();

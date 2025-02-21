@@ -1,15 +1,22 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
 export class SearchBarComponent {
-  @Output() searchButtonClicked = new EventEmitter()
+  @Input() search = 'Initial';
+  @Output() searchChange = new EventEmitter<string>();
+  @Output() searchButtonClicked = new EventEmitter();
   searchClick() {
     this.searchButtonClicked.emit();    
+  }
+
+  updateSearch(value: string) {
+    this.searchChange.emit(value);
   }
 }

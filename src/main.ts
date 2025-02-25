@@ -5,4 +5,4 @@ import { AppComponent } from './app/app.component';
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
 
-// Vidéo   1:12:03
+// Vidéo   1:31:00

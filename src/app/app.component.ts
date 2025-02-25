@@ -1,4 +1,4 @@
-import { Component, ɵsetUnknownPropertyStrictMode } from '@angular/core';
+import { Component, computed, effect, signal, ɵsetUnknownPropertyStrictMode } from '@angular/core';
 import { PlayingCardComponent } from "./components/playing-card/playing-card.component";
 import { Monster } from './models/monster.model';
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
@@ -15,9 +15,18 @@ export class AppComponent {
   monsters!: Monster[];
   count: number = 0;
   search = '';
-  selectedMonsterIndex = 1;
+  selectedMonsterIndex = signal(1);
+  selectedMonster = computed(() => {
+    return this.monsters[this.selectedMonsterIndex()]
+  })
 
   constructor() {
+
+    effect(() => {
+      console.log(this.selectedMonster());
+      
+    })
+
     this.monsters = [];
 
     const monster1 = new Monster();
@@ -40,7 +49,7 @@ export class AppComponent {
   }
 
   toggleMonster() {
-    this.selectedMonsterIndex = (this.selectedMonsterIndex + 1) % this.monsters.length; 
+    this.selectedMonsterIndex.set((this.selectedMonsterIndex() + 1) % this.monsters.length); 
   }
 
 }

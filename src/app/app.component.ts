@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal, model } from '@angular/core';
+import { Component, computed, signal, model, inject } from '@angular/core';
 import { PlayingCardComponent } from "./components/playing-card/playing-card.component";
 import { Monster } from './models/monster.model';
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
@@ -14,6 +14,8 @@ import { MonsterService } from './services/monster/monster.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
+  MonsterService = inject(MonsterService);
   
   monsters!: Monster[];
   search = model('');
@@ -27,7 +29,7 @@ export class AppComponent {
     return this.monsters[this.selectedMonsterIndex()]
   })
 
-  constructor(private MonsterService: MonsterService) {
+  constructor() {
 
     this.monsters = [];
 

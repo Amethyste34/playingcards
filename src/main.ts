@@ -5,4 +5,6 @@ import { AppComponent } from './app/app.component';
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
 
-// Vidéo   1:46:03 Chapitre 7 : Les conditions et les boucles
+// Vidéo you tube : lien https://www.youtube.com/watch?v=U71TQN68QGU
+// Chaîne SimpleTech
+// Lecture vidéo   2:03:43 Chapitre 8 : Les services

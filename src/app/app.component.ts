@@ -4,6 +4,7 @@ import { PlayingCardComponent } from "./components/playing-card/playing-card.com
 import { Monster } from './models/monster.model';
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
 import { MonsterType } from './utils/monster.utils';
+import { MonsterService } from './services/monster/monster.service';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,7 @@ export class AppComponent {
     return this.monsters[this.selectedMonsterIndex()]
   })
 
-  constructor() {
+  constructor(private MonsterService: MonsterService) {
 
     this.monsters = [];
 
@@ -60,6 +61,8 @@ export class AppComponent {
     monster4.hp = 60;
     monster4.figureCaption = "N°005 Sala";
     this.monsters.push(monster4);
+
+    this.MonsterService.hello();
   }
 
 }

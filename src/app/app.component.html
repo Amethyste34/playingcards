@@ -1,6 +1,9 @@
 <app-search-bar [(search)]="search"></app-search-bar>
 <div id="card-list">
-    @for (monster of filteredMonsters(); track monster) {
+    @for (monster of filteredMonsters(); track monster; let i=$index ) {
+        <div>
+            Index {{i}}
+        </div>
         <app-playing-card [monster]="monster"/>
     } @empty {
         <div class="center">No monsters found !</div>

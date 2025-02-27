@@ -12,7 +12,13 @@ export const routes: Routes = [{
     component: MonsterListComponent
 }, {
     path: 'monster',
-    component: MonsterComponent
+    children: [{
+        path: '',
+        component: MonsterComponent
+    }, {
+        path: ':id',
+        component: MonsterComponent
+    }]
 }, {
     path: '**',
     component: NotFoundComponent,

@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -15,7 +15,7 @@ export class MonsterComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  name = new FormControl('');
+  name = new FormControl('', Validators.required);
   monsterId = signal<number | undefined>(undefined);
   routeSubscription: Subscription | null = null; 
 
@@ -39,9 +39,5 @@ export class MonsterComponent implements OnInit, OnDestroy {
   submit(event: Event) {
     event.preventDefault();
     console.log(this.name.value);    
-  }
-
-  setChanged () {
-    this.name.setValue('Changed');
   }
 }

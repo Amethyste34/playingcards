@@ -15,7 +15,8 @@ export class MonsterComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  name = new FormControl('', Validators.required);
+  name = new FormControl('', [Validators.required]);
+  hp = new FormControl(0, [Validators.required, Validators.min(1), Validators.max(200)]);
   monsterId = signal<number | undefined>(undefined);
   routeSubscription: Subscription | null = null; 
 
@@ -39,5 +40,6 @@ export class MonsterComponent implements OnInit, OnDestroy {
   submit(event: Event) {
     event.preventDefault();
     console.log(this.name.value);    
+    console.log(this.hp.value);    
   }
 }

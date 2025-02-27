@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { MonsterListComponent } from './pages/monster-list/monster-list.component';
 import { MonsterComponent } from './pages/monster/monster.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [{
     path: '',
@@ -8,8 +9,11 @@ export const routes: Routes = [{
     pathMatch: 'full',
 },{
     path: 'home',
-    component: MonsterListComponent,
+    component: MonsterListComponent
 }, {
     path: 'monster',
-    component: MonsterComponent,
+    component: MonsterComponent
+}, {
+    path: '**',
+    component: NotFoundComponent,
 }];

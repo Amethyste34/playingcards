@@ -11,3 +11,13 @@ form {
 label {
     font-size: small;
 }
+
+.ng-dirty.ng-invalid, .ng-touched.ng-invalid {
+    border-color: red;
+    border-width: 1px;
+}
+
+.error {
+    font-size: x-small;
+    color: red;
+}

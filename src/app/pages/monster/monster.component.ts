@@ -1,7 +1,8 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MonsterType } from '../../utils/monster.utils';
 
 @Component({
   selector: 'app-monster',
@@ -15,8 +16,17 @@ export class MonsterComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  name = new FormControl('', [Validators.required]);
-  hp = new FormControl(0, [Validators.required, Validators.min(1), Validators.max(200)]);
+  formGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    image: new FormControl('', [Validators.required]),
+ 		type: new FormControl(MonsterType.ELECTRIC, [Validators.required]),
+ 		hp: new FormControl(0, [Validators.required, Validators.min(1), Validators.max(200)]),
+ 		figureCaption: new FormControl('', [Validators.required]),
+ 		attackName: new FormControl('', [Validators.required]),
+ 		attackStrength: new FormControl(0, [Validators.required, Validators.min(1), Validators.max(200)]),
+ 		attackDescription: new FormControl('', [Validators.required])
+  });
+  monsterTypes = Object.values(MonsterType);
   monsterId = signal<number | undefined>(undefined);
   routeSubscription: Subscription | null = null; 
 
@@ -39,7 +49,23 @@ export class MonsterComponent implements OnInit, OnDestroy {
 
   submit(event: Event) {
     event.preventDefault();
-    console.log(this.name.value);    
-    console.log(this.hp.value);    
+    console.log(this.formGroup.value);    
+  }
+
+  isFieldValid(name: string) {
+    const formControl = this.formGroup.get(name);
+    return formControl?.invalid && (formControl?.dirty || formControl?.touched);
+  }
+
+  onFileChange(event: any) {
+    const reader = new FileReader();
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file); reader.onload = () => {
+        this.formGroup.patchValue({
+          image: reader.result as string
+        });
+      };
+    }
   }
 }

@@ -40,4 +40,8 @@ export class MonsterComponent implements OnInit, OnDestroy {
     event.preventDefault();
     console.log(this.name.value);    
   }
+
+  setChanged () {
+    this.name.setValue('Changed');
+  }
 }

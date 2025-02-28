@@ -23,3 +23,5 @@ bootstrapApplication(AppComponent, appConfig)
 // 3:29:25 Gestion d'authentification
 // 4:11:57 Intégration d'une API REST
 // 4:37:30 Outro
+
+//Lecture en cours : 3:02:44

@@ -1,13 +1,15 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MonsterType } from '../../utils/monster.utils';
+import { PlayingCardComponent } from "../../components/playing-card/playing-card.component";
+import { Monster } from '../../models/monster.model';
 
 @Component({
   selector: 'app-monster',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PlayingCardComponent],
   templateUrl: './monster.component.html',
   styleUrl: './monster.component.css'
 })
@@ -16,6 +18,8 @@ export class MonsterComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private routeSubscription: Subscription | null = null;
+  private formValuesSubscription: Subscription | null = null;
 
   formGroup = this.fb.group({
     name: ['', [Validators.required]],
@@ -27,18 +31,23 @@ export class MonsterComponent implements OnInit, OnDestroy {
     attackStrength: [0, [Validators.required, Validators.min(1), Validators.max(200)]],
     attackDescription: ['', [Validators.required]]
   });
+
+  monster: Monster = Object.assign(new Monster(), this.formGroup.value);
   monsterTypes = Object.values(MonsterType);
   monsterId = signal<number | undefined>(undefined);
-  routeSubscription: Subscription | null = null; 
 
   //On lit les paramètres qui ont été passés dans l'URL
   ngOnInit(): void {
+    this.formValuesSubscription = this.formGroup.valueChanges.subscribe(data => {
+      this.monster = Object.assign(new Monster(), data);
+    });
     this.routeSubscription = this.route.params.subscribe(params => {
       this.monsterId.set(params['id'] ? parseInt(params['id']) : undefined);
     });
   }
 
   ngOnDestroy(): void {
+    this.formValuesSubscription?.unsubscribe();
     this.routeSubscription?.unsubscribe();
   }
 
@@ -68,5 +77,9 @@ export class MonsterComponent implements OnInit, OnDestroy {
         });
       };
     }
+  }
+
+  navigateBack() {
+    this.router.navigate(['/home']);
   }
 }
